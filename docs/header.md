@@ -16,7 +16,9 @@ It reduces the boilerplate and has better security flags raised by default.
 | [Wiki](https://docs.gitlab.com/ee/user/project/wiki/) | `false` |
 
 ## Examples
+
 ### Create one repository
+
 Pretty simple, add the following block and replace the values accordingly.
 
 ```hcl
@@ -30,7 +32,8 @@ module "my_new_repo" {
 }
 ```
 
-### Create many repositories under the same [subgroup](https://docs.gitlab.com/ee/user/group/subgroups/).
+### Create many repositories under the same [subgroup](https://docs.gitlab.com/ee/user/group/subgroups/)
+
 The usage consists of two simple steps, first define your variable in `variables.tf` then add the `module` block to your code, referencing the `source` as following:
 
 ```hcl
@@ -58,3 +61,5 @@ module "subgroup_projects" {
   tags         = setunion(["subgroup"], each.value.tags)
 }
 ```
+
+That's it! Run `terraform plan` and check the output to see if matches your recent changes.
