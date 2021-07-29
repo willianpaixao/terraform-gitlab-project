@@ -1,0 +1,14 @@
+formatter: markdown
+header-from: docs/header.md
+footer-from: docs/footer.md
+sections:
+  show:
+    - footer
+    - header
+    - inputs
+    - outputs
+    - providers
+    - resources
+output:
+  file: "README.md"
+  mode: replace
