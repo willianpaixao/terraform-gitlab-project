@@ -6,7 +6,9 @@ variable "approvals_required" {
 
 variable "author_email_regex" {
   default     = null
-  description = "All commit author emails must match this regex"
+  description = <<EOF
+All commit author emails must match this regex. As part of [Push Rules](https://docs.gitlab.com/ee/push_rules/push_rules.html), it's only available for GitLab Premium
+EOF
   type        = string
 }
 
@@ -17,7 +19,7 @@ variable "container_registry_enabled" {
 }
 
 variable "default_branch" {
-  default     = "master"
+  default     = "main"
   description = "The default branch for the project"
   type        = string
 }
@@ -47,12 +49,6 @@ variable "namespace_id" {
   type        = string
 }
 
-variable "pipelines_enabled" {
-  default     = true
-  description = "Enable pipelines for the project"
-  type        = bool
-}
-
 variable "owners" {
   default     = []
   description = <<EOF
@@ -64,6 +60,18 @@ EOF
     condition     = can([for o in var.owners : tonumber(o)])
     error_message = "Invalid User ID provided."
   }
+}
+
+variable "pipelines_enabled" {
+  default     = true
+  description = "Enable pipelines for the project"
+  type        = bool
+}
+
+variable "shared_runners_enabled" {
+  default     = true
+  description = "Enable [shared runners](https://docs.gitlab.com/ee/ci/runners/) for the project"
+  type        = bool
 }
 
 variable "tags" {
@@ -82,6 +90,6 @@ EOF
 
 variable "use_custom_template" {
   default     = false
-  description = "Use either custom instance or group project template"
+  description = "Use either custom instance or group-level project template"
   type        = bool
 }
