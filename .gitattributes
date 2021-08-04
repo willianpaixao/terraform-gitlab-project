@@ -1,0 +1,7 @@
+.gitattributes export-ignore
+.github export-ignore
+.gitignore export-ignore
+.markdownlint.yml export-ignore
+.pre-commit-config.yaml export-ignore
+.terraform-docs.yml export-ignore
+/docs export-ignore

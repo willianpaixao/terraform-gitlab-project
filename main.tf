@@ -19,7 +19,7 @@ resource "gitlab_project" "default" {
   packages_enabled           = false
   pipelines_enabled          = var.pipelines_enabled
   request_access_enabled     = false
-  shared_runners_enabled     = false
+  shared_runners_enabled     = var.shared_runners_enabled
   snippets_enabled           = false
   wiki_enabled               = false
 
@@ -54,7 +54,7 @@ resource "gitlab_branch_protection" "default" {
 
 resource "gitlab_project_approval_rule" "default" {
   project            = gitlab_project.default.id
-  name               = "Minimum one approval required"
+  name               = "Minimum number of required approvals"
   approvals_required = var.approvals_required
   user_ids           = compact(var.owners)
 }
