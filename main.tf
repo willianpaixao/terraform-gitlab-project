@@ -70,3 +70,9 @@ resource "gitlab_pipeline_trigger" "default" {
   project     = gitlab_project.default.id
   description = "Used to trigger builds in bulk"
 }
+
+resource "gitlab_tag_protection" "default" {
+  project             = gitlab_project.default.id
+  tag                 = "*"
+  create_access_level = "developer"
+}
