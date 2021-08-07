@@ -1,6 +1,8 @@
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png)
+
 # Gitlab project Terraform module
 
-To create a new Gitlab [project](https://docs.gitlab.com/ee/user/project/) (aka Git repository) under an existing [group](https://docs.gitlab.com/ee/user/group/), this module is a handy shortcut.
+This module is built upon the [gitlabhq/gitlab](https://github.com/gitlabhq/terraform-provider-gitlab) provider, and is used to create a new Gitlab [projects](https://docs.gitlab.com/ee/user/project/) (aka Git repository) under an existing [group](https://docs.gitlab.com/ee/user/group/).
 It reduces the boilerplate and has better security flags raised by default.
 
 -> The group can be created or imported using [gitlab_group](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/group)
@@ -66,6 +68,7 @@ module "subgroup_projects" {
 ```
 
 ### Setting a list of project owners
+
 ```hcl
 data "gitlab_user" "owners" {
   for_each = toset(["user1", "user2", "user3"])
@@ -86,6 +89,7 @@ module "api" {
 
 resource "gitlab_project_membership" "owners" {
   for_each     = [for user in data.owners.users : user.id]
+
   project_id   = module.api.id
   user_id      = each.key
   access_level = "owners"

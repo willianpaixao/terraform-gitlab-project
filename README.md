@@ -1,7 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png)
+
 # Gitlab project Terraform module
 
-To create a new Gitlab [project](https://docs.gitlab.com/ee/user/project/) (aka Git repository) under an existing [group](https://docs.gitlab.com/ee/user/group/), this module is a handy shortcut.
+This module is built upon the [gitlabhq/gitlab](https://github.com/gitlabhq/terraform-provider-gitlab) provider, and is used to create a new Gitlab [projects](https://docs.gitlab.com/ee/user/project/) (aka Git repository) under an existing [group](https://docs.gitlab.com/ee/user/group/).
 It reduces the boilerplate and has better security flags raised by default.
 
 -> The group can be created or imported using [gitlab\_group](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/group)
@@ -67,6 +69,7 @@ module "subgroup_projects" {
 ```
 
 ### Setting a list of project owners
+
 ```hcl
 data "gitlab_user" "owners" {
   for_each = toset(["user1", "user2", "user3"])
@@ -87,6 +90,7 @@ module "api" {
 
 resource "gitlab_project_membership" "owners" {
   for_each     = [for user in data.owners.users : user.id]
+
   project_id   = module.api.id
   user_id      = each.key
   access_level = "owners"
@@ -110,6 +114,7 @@ That's it! Run `terraform plan` and check the output to see if matches your rece
 | [gitlab_project.default](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/project) | resource |
 | [gitlab_project_approval_rule.default](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/project_approval_rule) | resource |
 | [gitlab_project_level_mr_approvals.default](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/project_level_mr_approvals) | resource |
+| [gitlab_tag_protection.default](https://registry.terraform.io/providers/gitlabhq/gitlab/latest/docs/resources/tag_protection) | resource |
 
 ## Inputs
 
